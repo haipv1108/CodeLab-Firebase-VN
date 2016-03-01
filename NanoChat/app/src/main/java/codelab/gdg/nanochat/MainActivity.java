@@ -35,10 +35,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String text = textEdit.getText().toString();
-                Map<String, Object> values = new HashMap<>();
-                values.put("name", "Android User");
-                values.put("text", text);
-                mFirebaseRef.push().setValue(values);
+                ChatMessage message = new ChatMessage("Android User", text);
+                mFirebaseRef.push().setValue(message);
                 textEdit.setText("");
             }
         });
