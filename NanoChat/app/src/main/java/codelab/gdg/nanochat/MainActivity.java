@@ -11,9 +11,9 @@ import android.widget.TextView;
 import com.firebase.client.Firebase;
 import com.firebase.ui.FirebaseListAdapter;
 
-import java.util.HashMap;
-import java.util.Map;
-
+/**
+ * Step 5.1: Bật login email-password: trên <a href="http://codelabg.firebaseio.com">Trang Firebase</a>
+ * */
 public class MainActivity extends AppCompatActivity {
 
     private Firebase mFirebaseRef;
