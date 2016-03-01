@@ -18,7 +18,7 @@ import com.firebase.ui.auth.core.FirebaseLoginError;
 
 /**
  * Step 5.1: Bật login email-password: trên <a href="http://codelabg.firebaseio.com">Trang Firebase</a>
- * */
+ */
 public class MainActivity extends FirebaseLoginBaseActivity {
 
     private Firebase mFirebaseRef;
@@ -26,6 +26,10 @@ public class MainActivity extends FirebaseLoginBaseActivity {
     FirebaseListAdapter<ChatMessage> mListAdapter;
 
     private String email = "Android User";
+
+    private Button loginButton;
+
+    private Button logoutButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,11 +65,19 @@ public class MainActivity extends FirebaseLoginBaseActivity {
 
         // Step 5.6: gọi showFirebaseLoginPrompt() khi loginButton được click.
         // Truy cập https://codelabg.firebaseio.com -> chọn tab: Auth -> chọn Add User để thêm user.
-        Button loginButton = (Button) this.findViewById(R.id.login);
+        loginButton = (Button) this.findViewById(R.id.login);
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showFirebaseLoginPrompt();
+            }
+        });
+
+        logoutButton = (Button) this.findViewById(R.id.logout);
+        logoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                logout();
             }
         });
     }
@@ -78,16 +90,20 @@ public class MainActivity extends FirebaseLoginBaseActivity {
     @Override
     protected void onFirebaseLoggedIn(AuthData authData) {
         super.onFirebaseLoggedIn(authData);
-        if(BuildConfig.DEBUG) {
+        if (BuildConfig.DEBUG) {
             Log.d("Firebase", authData.getProviderData().get("email").toString());
         }
         email = authData.getProviderData().get("email").toString();
+        loginButton.setVisibility(View.GONE);
+        logoutButton.setVisibility(View.VISIBLE);
     }
 
     @Override
     protected void onFirebaseLoggedOut() {
         super.onFirebaseLoggedOut();
         email = "Android User";
+        loginButton.setVisibility(View.VISIBLE);
+        logoutButton.setVisibility(View.GONE);
     }
 
     @Override
